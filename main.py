@@ -1,5 +1,6 @@
 from typing import Iterable
 import numpy as np
+import matplotlib.pyplot as plt
 import glob
 from PIL import Image
 
@@ -42,3 +43,16 @@ def read_dataset(path: str, extension: str) -> Iterable[np.ndarray]:
     path_list = glob.glob(pathname_pattern)
     map_iter = map(read_image, path_list)
     return map_iter
+
+
+def visualize_image(array: np.ndarray, name: str):
+    """Shows the image represented by the array
+
+    :param array: array of size IMAGE_WIDTH*IMAGE_HEIGHT
+    :type array: numpy.ndarray
+    """
+    resized = np.resize(array, (IMAGE_HEIGHT, IMAGE_WIDTH))
+    plot = plt.imshow(resized, cmap="gray")
+    plot.axes.get_xaxis().set_visible(False)
+    plot.axes.get_yaxis().set_visible(False)
+    plt.show
