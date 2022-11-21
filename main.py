@@ -56,3 +56,13 @@ def visualize_image(array: np.ndarray, name: str):
     plot.axes.get_xaxis().set_visible(False)
     plot.axes.get_yaxis().set_visible(False)
     plt.show
+
+
+if __name__ == "__main__":
+    faces_matrix = np.row_stack(tuple(read_dataset("data", "jpg")))
+    avg_face = np.mean(faces_matrix, axis=0)
+    diff_matrix = faces_matrix - avg_face
+    # Using full_matrices=False to avoid doing unnecessary calculations
+    _, _, eigenfaces = np.linalg.svd(diff_matrix, full_matrices=False)
+    visualize_image(avg_face, "average_face")
+    visualize_image(eigenfaces[0], "eigenface_1")
